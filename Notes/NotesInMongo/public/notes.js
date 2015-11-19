@@ -14,8 +14,10 @@ module.controller('NotesController',
         $scope.add = function() {
             console.log("we want to save the note")
             var note = { text: $scope.text,
-                        date : new Date()};
+                        date : new Date(),
+                        section : $scope.activeSection};
             console.log(note)
+            if ($scope.text.length==0) return;
             $http.post("/notes", note)
             .success(function() {
         	    $scope.text = "";
@@ -46,12 +48,12 @@ module.controller('NotesController',
             	});
             }
 
-            $scope.showSection = function(section) {
+         $scope.showSection = function(section) {
             	$scope.activeSection = section.title;
                 update();
             }
 
-            $scope.writeSections = function() {
+         $scope.writeSections = function() {
                 if ($scope.sections && $scope.sections.length>0) {
                     $http.post("/sections/replace", $scope.sections);
              	}
