@@ -33,12 +33,18 @@ db.open(function(){
 	})
 })
 
+db.collection('sections', function(error, sections) {
+		db.sections = sections;
+});
+
 var ObjectID = require('mongodb').ObjectID
 
 
 app.listen(3000)
 
 app.get("/notes", function(req,res) {
+	console.log(req.query)
+	console.log(req.params)
 	db.notes.find(req.query).toArray(function(error, items){
 		res.send(items)
 	})
@@ -61,26 +67,11 @@ app.delete("/notes", function(req, res){
 	})
 });
 
-app.post("/notes/update", function(req, res){
-	var id = req.body.id;
-	if (!req.session.notes) {
-    	req.session.notes = [];
-    	req.session.last_note_id = 0;
-    }
-    var notes = req.session.notes||[]
-    var updatedNotesList = []
-    for(var i = 0, j = 1; i < notes.length; i++){
-    	if(notes[i].id == id){
-    		updatedNotesList[0] = notes[i]
-    	}else{
-    		updatedNotesList[j] = notes[i]
-    		j++
-    	}
-    }
-    console.log("Notes List")
-    console.log(notes)
-    console.log("Updated notes list")
-    console.log(updatedNotesList)
-    //req.session.notes = updatedNotesList
-    res.end()
+app.get("/sections", function(req,res) {
+	console.log("finding sections in server")
+	console.log("req.query = " + req.query)
+	db.sections.find(req.query).toArray(function(err, items) {
+		console.log(items);
+		res.send(items);
+	});
 });

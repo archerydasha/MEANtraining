@@ -2,8 +2,9 @@ var module = angular.module('myapp', []);
 module.controller('NotesController',
 	function($scope, $http) {
 	    var update = function() {
+	        var params = {params:{section:$scope.activeSection}};
 	        console.log("we want to find initial set of notes")
-            $http.get("/notes")
+            $http.get("/notes", params)
             .success(function(notes) {
                 console.log("notes are to be updated")
                 $scope.notes = notes;
@@ -29,8 +30,29 @@ module.controller('NotesController',
                       update();
                 })
             };
+
+            var readSections = function() {
+                console.log("reading sections")
+            	$http.get("/sections")
+            	.success(function(sections) {
+            		$scope.sections = sections;
+            		console.log(sections)
+            		if ($scope.activeSection == null &&
+                    $scope.sections.length>0) {
+                    			$scope.activeSection =
+                    				$scope.sections[0].title;
+               		}
+            		update();
+            	});
+            }
+
+            $scope.showSection = function(section) {
+            	$scope.activeSection = section.title;
+                update();
+            }
+
     $scope.notes = [];
-    update();
+    readSections();
 });
 
 
