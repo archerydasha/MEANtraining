@@ -38,10 +38,9 @@ module.controller('NotesController',
             	.success(function(sections) {
             		$scope.sections = sections;
             		console.log(sections)
-            		if ($scope.activeSection == null &&
+            		if (!$scope.activeSection &&
                          $scope.sections.length>0) {
-                    	        $scope.activeSection =
-                    			$scope.sections[0].title;
+                    	        $scope.activeSection = $scope.sections[0].title;
                		}
             		update();
             	});
