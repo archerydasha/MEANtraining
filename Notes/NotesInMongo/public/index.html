@@ -8,7 +8,7 @@
 
 <body ng-controller="NotesController">
 <div ng-repeat="note in notes">
-    <p class="note">{{note.text}}</p>
+    <p class="note">{{note.text}}, {{note.date | date : 'HH:mm dd.MM.yyyy'}}</p>
     <button ng-click="remove(note._id)">Remove note</button>
     <button ng-click="moveToTop(note._id)">To top</button>
 </div>

@@ -12,7 +12,8 @@ module.controller('NotesController',
 
         $scope.add = function() {
             console.log("we want to save the note")
-            var note = {text: $scope.text};
+            var note = { text: $scope.text,
+                        date : new Date()};
             console.log(note)
             $http.post("/notes", note)
             .success(function() {
