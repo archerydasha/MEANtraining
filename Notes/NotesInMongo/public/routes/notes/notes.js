@@ -1,5 +1,5 @@
 module.controller('NotesController',
-	function($scope, $http) {
+	function($scope, $http, $routeParams, $location) {
 	    var update = function() {
 	        var params = {params:{section:$scope.activeSection}};
 	        console.log("we want to find initial set of notes")
@@ -48,6 +48,7 @@ module.controller('NotesController',
 
          $scope.showSection = function(section) {
             	$scope.activeSection = section.title;
+            	$location.path(section.title);
                 update();
             }
 
@@ -77,6 +78,7 @@ module.controller('NotesController',
 
 
     $scope.notes = [];
+    $scope.activeSection = $routeParams.section;
     readSections();
 });
 

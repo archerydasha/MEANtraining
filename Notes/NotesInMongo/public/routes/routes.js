@@ -2,6 +2,10 @@ var module = angular.module('myapp', ['dndLists', 'ngRoute']);
 
 module.config(['$routeProvider',function($routeProvider) {
        $routeProvider.
+            when('/:section?', {
+                templateUrl: 'routes/notes/notes.html',
+                controller: 'NotesController'
+            }).
             when('/', {
                templateUrl: 'routes/notes/notes.html',
                controller: 'NotesController'
