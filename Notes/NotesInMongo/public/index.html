@@ -5,6 +5,7 @@
     <title>Notes application</title>
     <script src="angular.js"></script>
     <script src="notes.js"></script>
+    <script src="js/angular-drag-and-drop-lists.js"></script>
 </head>
 
 <body ng-controller="NotesController">
@@ -75,8 +76,10 @@
         </div>
 
         <div class="col-md-4">
-            <ul class="list-group">
+            <ul class="list-group" dnd-list="sections">
                 <li href="#" class="list-group-item"
+                    dnd-draggable="section"
+                    dnd-moved="sections.splice($index, 1); writeSections();"
                     ng-repeat="section in sections"
                     ng-click="showSection(section)"
                     ng-class="{active: section.title==activeSection}">

@@ -1,4 +1,4 @@
-var module = angular.module('myapp', []);
+var module = angular.module('myapp', ['dndLists']);
 module.controller('NotesController',
 	function($scope, $http) {
 	    var update = function() {
