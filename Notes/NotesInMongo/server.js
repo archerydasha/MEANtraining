@@ -90,3 +90,8 @@ app.post("/sections/replace", function(req,resp) {
 	});
 });
 
+app.get("/checkUser", function(req,res) {
+	res.send(req.query.user.length>2);
+});
+
+
