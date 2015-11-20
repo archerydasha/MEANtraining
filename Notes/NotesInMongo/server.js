@@ -37,6 +37,10 @@ db.collection('sections', function(error, sections) {
 		db.sections = sections;
 });
 
+db.collection('users', function(error, users) {
+		db.users = users;
+});
+
 var ObjectID = require('mongodb').ObjectID
 
 
@@ -91,7 +95,19 @@ app.post("/sections/replace", function(req,resp) {
 });
 
 app.get("/checkUser", function(req,res) {
-	res.send(req.query.user.length>2);
+	db.users.find({userName : req.query.user}).toArray(function(err, users){
+		console.log("users" + users)
+		console.log("number of users" + users.length)
+		res.send(users.length == 0)
+	})
+
 });
 
+app.post("/users", function(req,res) {
+	db.users.insert(req.body, function(resp) {
+		console.log(req.body)
+		req.session.userName = req.body.userName;
+		res.end();
+	});
+});
 
