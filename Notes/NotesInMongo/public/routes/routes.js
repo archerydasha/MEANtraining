@@ -22,3 +22,26 @@ module.config(['$routeProvider',function($routeProvider) {
                redirectTo: '/'
             });
 }]);
+
+module.directive("matchTo", function() {
+    console.log("performing match to")
+    return {
+        require: "ngModel",
+        scope: {
+            otherValue: "=matchTo"
+        },
+        link: function(scope, element, attributes, ngModel) {
+
+            ngModel.$validators.matchTo = function(modelValue) {
+                console.log(modelValue)
+                console.log(scope.otherValue)
+                return modelValue == scope.otherValue;
+            };
+
+            scope.$watch("otherValue", function() {
+                ngModel.$validate();
+            });
+        }
+    };
+});
+
